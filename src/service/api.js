@@ -1,5 +1,9 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-const Api = "https://api.github.com/users";
+
+const Api = {
+    baseUrl: 'https://api.github.com/users/'
+ }
+
  
 export default Api;

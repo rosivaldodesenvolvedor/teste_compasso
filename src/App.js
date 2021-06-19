@@ -1,17 +1,21 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './components/SearchUsuario';
-import UserContext from './UserContext';
-import Usuarios from './components/Usuarios';
+import CardUsuario from './components/CardUsuario';
+import { UsuarioProvider } from './contexts/contextApi'
 
 
-function App() {
+
+function App(props) {
+
   return (
-    <div className="App">
-      <UserContext.Provider value={{ nome: 'André' }}>
-      <Search />
-      <Usuarios />
-      </UserContext.Provider>
-    </div>
+
+
+    <UsuarioProvider>
+  <div className="App">
+           <Search />    
+           <CardUsuario/>
+     </div>
+          </UsuarioProvider>
   );
 }
 
