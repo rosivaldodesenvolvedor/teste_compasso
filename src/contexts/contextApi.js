@@ -1,31 +1,38 @@
 import React, { createContext, useEffect, useState,   } from 'react';
 import PropTypes, { object } from 'prop-types'
 import api from '../service/api'
-import Axios from 'axios'
 
 const UsuarioContext = createContext();
 
-function UsuarioProvider({Children}) {
+function UsuarioProvider({children}) {
 
     const [usuario, setUsuario] = useState('')
+    const [repositorios, setRepositorios] = useState('')
+    const [repositorioMaisVisto, setRepositorioMaisVisto] = useState('')
 
     const buscarUsuario = async (user) => {
-        const result = await Axios.get(api.baseUrl  + user)
+        const result = await api.get(""  + user)
         setUsuario(result.data)
-        console.log("buscarUsuario")
+        console.log("Resultado", result.data)
+      }
+
+      const buscarRepositorios = async (user) => {
+        const result = await api.get("" + user + "/repos")
+        setRepositorios(result.data)
       }
 
 
-      useEffect(()=>{
-        {console.log("metodo UsuarioProvider")}
-      },[])
+   
+
 
     return ( 
         <UsuarioContext.Provider value={{
             usuario,
-            buscarUsuario
+            repositorios,
+            buscarUsuario,
+            buscarRepositorios
             }}>
-            {Children}
+            {children}
         </UsuarioContext.Provider>
     )
 
