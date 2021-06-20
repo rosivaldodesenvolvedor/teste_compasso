@@ -30,8 +30,8 @@ const CardUsuario = () => {
                                     {usuario.login}
                                 </span>
                                 <span>
-                                    <b> Url do Perfil:</b>
-                                    {usuario.html_url}
+                                <b>perfil do usuário: </b>
+                                    <a href={usuario.html_url}>{usuario.html_url}</a>
                                 </span>
                             </div>
                             <button
