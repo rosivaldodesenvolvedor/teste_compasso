@@ -1,15 +1,64 @@
-import React from 'react';
-import {ContainerRepositoriosMaisVistos} from './style'
-
+import React, { useState, useEffect } from 'react';
+import useUsuario from '../../hooks/Usuario';
+import { ContainerRepositorios, ItemContainerRepositorios } from './style'
 
 const ReposiMaisVistos = () => {
+
+  const [repositorysMaisVistos, sepositorysMaisVistos] = useState(() => [])
+
+  const { usuario, repositorioMaisVisto, buscarRepositoriosMaisVistos } = useUsuario()
+
+  useEffect(() => {
+    buscarRepository();
+    mostrarRepositorios();
+    sepositorysMaisVistos(repositorioMaisVisto)
+  }, [usuario, repositorioMaisVisto])
+
+  const buscarRepository = () => {
+    buscarRepositoriosMaisVistos(usuario.login)
+  }
+
+  const mostrarRepositorios = () => {
     return (
-        <div>
-            <ContainerRepositoriosMaisVistos>
-               <h1>Repositorios mais visto</h1>  
-            </ContainerRepositoriosMaisVistos>
-        </div>
-    );
+
+      <ContainerRepositorios>
+        <ItemContainerRepositorios>
+          {repositorysMaisVistos ? repositorysMaisVistos.map(repository => {
+            return (
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-4">
+                    <span>
+                      <b>Nome do Repositorio:</b>
+                    </span>
+                    <span>
+                      {repository.name}
+                    </span>
+                  </div>
+                  <div className="col-lg-8">
+                    <span>
+                      <b>Url do Repositorio:</b>
+                    </span>
+                    <span>
+                      {repository.html_url}
+                    </span>
+                  </div>
+                  <hr />
+                </div>
+              </div>
+            )
+          })
+            : <div> Nenhum Repositorio Encontrado</div>
+          }
+        </ItemContainerRepositorios>
+      </ContainerRepositorios>
+    )
+  }
+
+  return (
+    <div>
+      {mostrarRepositorios()}
+    </div>
+  );
 }
- 
-export default ReposiMaisVistos;
+export default ReposiMaisVistos

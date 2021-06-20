@@ -3,12 +3,12 @@ import axios from 'axios';
 
 const Api = axios.create({
   baseURL: 'https://api.github.com/users/',
-   headers: {
+  headers: {
     'Content-Type': 'application/json'
   },
   timeout: 1000,
 });
- 
+
 
  
 export default Api;

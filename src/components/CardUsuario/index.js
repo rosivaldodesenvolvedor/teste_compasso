@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import useUsuario from '../../hooks/Usuario';
-import { ContainerUsuario } from './styled'
-import Repositorios from './components/Repositorios';
-import RepositoriosMaisVistos from './components/ReposiMaisVistos';
+import { ContainerUsuario, ItemContainerUsuario } from './styled'
+import Repositorios from '../Repositorios';
+import RepositoriosMaisVistos from '../ReposiMaisVistos';
 
 const CardUsuario = () => {
     const [mostrarRepositorios, setmostrarRepositorios] = useState(false)
@@ -10,28 +10,51 @@ const CardUsuario = () => {
 
     const { usuario, buscarUsuario } = useUsuario()
 
-    useEffect(() => {
-        console.log(usuario)
-    })
-
+    const mostrarRepository = () => {
+        setmostrarRepositoriosMaisVistos(false);
+        setmostrarRepositorios(true);
+    }
+    const mostrarRepositoryMaisVisto = () => {
+        setmostrarRepositorios(false);
+        setmostrarRepositoriosMaisVistos(true);
+    }
     return (
         <div>
             <ContainerUsuario>
-                <p> Usuario: {usuario.login}</p>
-                <button 
-                onClick={()=>{setmostrarRepositorios(true) && setmostrarRepositoriosMaisVistos(false)}}
-                >Repositorios</button>
-                <button 
-                onClick={()=>{ setmostrarRepositoriosMaisVistos(true) && setmostrarRepositorios(false)}}
-                >Repositorios</button>
+                <ItemContainerUsuario >
+                    {usuario ? (
+                        <div>
+                            <div>
+                                <span>
+                                    <b>Usuraio: </b>
+                                    {usuario.login}
+                                </span>
+                                <span>
+                                    <b> Url do Perfil:</b>
+                                    {usuario.html_url}
+                                </span>
+                            </div>
+                            <button
+                                className="btn btn-primary btn-lg"
+                                onClick={() => { mostrarRepository() }}>
+                                Repositorios
+                            </button>
+                            <button
+                                className="btn btn-primary btn-lg"
+                                onClick={() => { mostrarRepositoryMaisVisto() }}>
+                                Repositorios mais vistos
+                            </button>
+                        </div>
+                    ) : ''
+                    }
+                </ItemContainerUsuario>
             </ContainerUsuario>
-
             <ContainerUsuario>
                 {
-                    mostrarRepositorios && !mostrarRepositoriosMaisVistos ? <Repositorios /> : ''
+                    mostrarRepositorios ? <Repositorios /> : ''
                 }
                 {
-                    mostrarRepositoriosMaisVistos && !mostrarRepositorios ? <RepositoriosMaisVistos /> : ''
+                    mostrarRepositoriosMaisVistos ? <RepositoriosMaisVistos /> : ''
                 }
             </ContainerUsuario>
         </div>
