@@ -6,7 +6,10 @@
 
 2 - Executar npm install ou yarn install para executar todas as dependecias.
 
+3 - É necessário o computador ter acesso a internet, no projeto foi utlizado bootstrap por CDN
+
 3- Executar npm start para rodar o projeto.
+
 
 Esses três passos devem fazer o projeto rodar no seu computador.
 

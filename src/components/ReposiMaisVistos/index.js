@@ -40,7 +40,7 @@ const ReposiMaisVistos = () => {
                       <b>Url do Repositorio:</b>
                     </span>
                     <span>
-                      {repository.html_url}
+                     <a href={repository.html_url}>{repository.html_url}</a> 
                     </span>
                   </div>
                   <hr />
